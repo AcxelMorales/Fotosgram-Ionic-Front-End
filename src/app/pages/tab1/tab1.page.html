@@ -1,0 +1,27 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-icon slot="icon-only" name="bonfire"></ion-icon> -->
+      <ion-icon class="logo" name="logo-ionic" color="tertiary"></ion-icon>
+    </ion-buttons>
+    <ion-title>
+      Ionic Fotosgram
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="reload($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Posts -->
+  <app-posts [posts]="posts"></app-posts>
+
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll [disabled]="!enable" threshold="150px" (ionInfinite)="next($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
