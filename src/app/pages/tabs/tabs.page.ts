@@ -4,8 +4,4 @@ import { Component } from '@angular/core';
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
 })
-export class TabsPage {
-
-  constructor() {}
-
-}
+export class TabsPage { }

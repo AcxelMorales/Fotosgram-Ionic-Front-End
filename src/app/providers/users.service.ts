@@ -39,9 +39,9 @@ export class UsersService implements OnDestroy {
     const data = { email, password };
 
     return new Promise(resolve => {
-      this.loginSubscription = this.http.post(`${URL}/${this.urlPath}/login`, data).subscribe(resp => {
+      this.loginSubscription = this.http.post(`${URL}/${this.urlPath}/login`, data).subscribe(async resp => {
         if (resp['ok']) {
-          this.saveToken(resp['token']);
+          await this.saveToken(resp['token']);
           resolve(true);
         } else {
           this.token = null;
@@ -54,9 +54,9 @@ export class UsersService implements OnDestroy {
 
   registry(user: User): Promise<boolean> {
     return new Promise(resolve => {
-      this.registrySubscription = this.http.post(`${URL}/${this.urlPath}/create`, user).subscribe(resp => {
+      this.registrySubscription = this.http.post(`${URL}/${this.urlPath}/create`, user).subscribe(async resp => {
         if (resp['ok']) {
-          this.saveToken(resp['token']);
+          await this.saveToken(resp['token']);
           resolve(true);
         } else {
           this.token = null;
@@ -70,6 +70,7 @@ export class UsersService implements OnDestroy {
   private async saveToken(token: string): Promise<void> {
     this.token = token;
     await this.storage.set('token', token);
+    await this.tokenValidate();
   }
 
   private async getToken(): Promise<void> {
@@ -119,8 +120,10 @@ export class UsersService implements OnDestroy {
   }
 
   logout(): void {
-    this.storage.remove('token');
-    this.navController.navigateRoot('/login')
+    this.token = null;
+    this.user  = null;
+    this.storage.clear();
+    this.navController.navigateRoot('/login', { animated: true })
   }
 
   ngOnDestroy(): void {

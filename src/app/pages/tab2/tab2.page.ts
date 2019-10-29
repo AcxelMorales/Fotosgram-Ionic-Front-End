@@ -40,6 +40,8 @@ export class Tab2Page {
       position: false
     };
 
+    this.imagesTemp = [];
+
     if (ok) this.router.navigateByUrl('/main/tabs/tab1');
   }
 
@@ -71,9 +73,26 @@ export class Tab2Page {
       sourceType        : this.camera.PictureSourceType.CAMERA
     };
     
+    this.processImg(options);
+  }
+
+  openGallery(): void {
+    const options: CameraOptions = {
+      quality           : 60,
+      destinationType   : this.camera.DestinationType.FILE_URI,
+      encodingType      : this.camera.EncodingType.JPEG,
+      mediaType         : this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType        : this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+    
+    this.processImg(options);
+  }
+
+  private processImg(options: CameraOptions): void {
     this.camera.getPicture(options).then((imageData) => {
       const img = window.Ionic.WebView.convertFileSrc(imageData);
-      console.log(img);
+      this.postService.uploadImg(imageData);
       this.imagesTemp.push(img);
     }, (err) => {
      // Handle error

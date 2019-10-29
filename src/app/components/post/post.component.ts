@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Post } from '../../interfaces/interfaces';
 
@@ -7,16 +7,15 @@ import { Post } from '../../interfaces/interfaces';
   templateUrl: './post.component.html',
   styleUrls: [],
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
 
   @Input() post: Post;
 
-  img1: string = '/assets/perro-1.jpg';
-  img2: string = '/assets/perro-2.jpg';
-  img3: string = '/assets/perro-3.jpg';
+  onlySlideOpts = {
+    allowSlideNext: false,
+    allowSlidePrev: false,
+  };
 
   constructor() { }
-
-  ngOnInit(): void {}
 
 }

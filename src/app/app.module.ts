@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +30,8 @@ import { AppComponent } from './app.component';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
-    Camera
+    Camera,
+    FileTransfer
   ],
   bootstrap: [AppComponent]
 })

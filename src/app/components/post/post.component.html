@@ -10,16 +10,23 @@
     </ion-label>
   </ion-item>
 
-  <!-- <ion-slides pager="true">
-    <ion-slide class="image-slide" [style]="img1 | domSanitizer"></ion-slide>
-    <ion-slide class="image-slide" [style]="img2 | domSanitizer"></ion-slide>
-    <ion-slide class="image-slide" [style]="img3 | domSanitizer"></ion-slide>
-  </ion-slides> -->
+  <ion-slides pager="true" *ngIf="post.img.length > 1">
+    <ion-slide 
+      *ngFor="let img of post.img"
+      class="image-slide" 
+      [style]="(img | image: post.user._id) | domSanitizer"></ion-slide>
+  </ion-slides>
+
+  <ion-slides *ngIf="post.img.length === 1" [options]="onlySlideOpts">
+    <ion-slide 
+      class="image-slide" 
+      [style]="(post.img[0] | image: post.user._id) | domSanitizer"></ion-slide>
+  </ion-slides>
 
   <!-- Mapa -->
-  <app-map [coords]="post.coords"></app-map>
+  <app-map [coords]="post.coords" *ngIf="post.coords"></app-map>
 
-  <ion-item>
+  <ion-item lines="none">
     <ion-icon slot="start" name="heart-empty"></ion-icon>
     <ion-icon slot="end" name="bookmark"></ion-icon>
   </ion-item>
